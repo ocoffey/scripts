@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+#the purpose of this script is to do a git push
+#on all local repos at system shutdown
+#wip
+cd ~ && cd Documents
+for d in Github/*/
+do
+    (cd "$d" && gpush "shutdown sequence")
+done
