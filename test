@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# declare but don't initialize values
+largest=
+largestfile=
+# for each item in the directory
+for file in "$1"/*
+do
+  # skip if the item is a directory
+  if [ -d $file ] ; then
+    continue
+  fi
+  # get the head of a file to myvar
+  myvar=$(head -c 1 $file)
+  # sets largest if largest is currently uninitialized
+  ${largest:=$myvar}
+  # sets largestfile if uninitialized
+  ${largestfile:=$file}
+  # comparison to see if we reset largest
+  if [ "$myvar" < "$largest" ] ; then
+    $largest=$myvar
+    $largestfile=$file
+  fi
+done
+echo largestfile
