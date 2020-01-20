@@ -8,9 +8,36 @@ cat ${termcolor} >> ~/.bashrc
 # To Add
     # Setup git configs
     # Setup SSH, print the key
-    # Install Rust
-        # curl https://sh.rustup.rs -sSf | sh
+
+# Install Rust
+curl https://sh.rustup.rs -sSf | sh
     # Check for updates on langs
-    # detection for if WSL. If not,
-        # install vs code, vlc, discord
-        # install refind?
+
+# update and upgrade apps
+apt-get update
+apt-get upgrade
+
+# check for WSL; if not, install
+# vscode, discord, and vlc player
+set -e
+if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+    echo "Windows 10 Bash"
+else
+    # install vscode
+    # update packages, install dependencies
+    sudo apt update
+    sudo apt install software-properties-common apt-transport-https wget
+    # import Microsoft GPG key
+    wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+    # enable VSCode repository
+    sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+    # install latest version
+    sudo apt update
+    sudo apt install code
+
+    # install discord
+    sudo snap install discord
+
+    # install vlc player
+    sudo snap install VLC
+fi
